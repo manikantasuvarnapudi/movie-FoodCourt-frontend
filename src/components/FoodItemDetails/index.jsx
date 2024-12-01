@@ -26,6 +26,7 @@ const FoodItemDetails = () => {
     const [retrybutton, setRetryButton] = useState(false)
     const [instructions, setInstructions] = useState("")
     const { cartArray, setCartArray } = useContext(CartContext)
+    const [itemAdded,setItemAdded] = useState(false)
     const params = useParams()
     const { id } = params
 
@@ -50,6 +51,7 @@ const FoodItemDetails = () => {
         const isItemFind = cartArray.some(item => item.id === data.id)
         if (!isItemFind) {
             setCartArray((preavState) => [...preavState, {...data,instructions: instructions,quantity: quantity}])
+            setItemAdded(true)
         }
     }
 
@@ -92,7 +94,7 @@ const FoodItemDetails = () => {
                 <textarea value={instructions} onChange={onSetInstructions} placeholder="Speial Instructions" name="story" rows="5" cols="80">
                 </textarea>
 
-                <button type="button" onClick={onClickAdd} className="addto-cart">Add To Order</button>
+                <button type="button" onClick={onClickAdd} className="addto-cart"> {itemAdded ? "Item Added" : "Add To Order"}  </button>
             </div>
         </div>
 
