@@ -1,0 +1,65 @@
+.cart-continer{
+    background-color: rgb(54, 40, 40);
+    min-height: 100vh;
+    color: white;
+}
+.cart-list-ul-container{
+    padding-top: 15px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.proced-buton-container{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+.proced-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.total{
+    font-family: "Roboto";
+    align-self: center;
+    font-size: 25px;
+
+}
+.total-ammount{
+    font-size: 25px;
+}
+.input-feild{
+    width: 95%;
+    outline: none;
+    border: 0.9px solid rgb(136, 121, 93);
+    padding: 7px;
+    border-radius: 4px;
+    margin-bottom: 13px;
+    background-color: rgb(95, 86, 86);
+    color: white;
+    font-size: 15px;
+}
+.checkout-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.proceed-button{
+    background-color: rgb(241, 169, 34);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    padding: 8px;
+    width: 95%;
+    margin-top: 5px;
+    font-size: 18px;
+    
+}

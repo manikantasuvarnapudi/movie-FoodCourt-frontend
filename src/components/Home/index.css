@@ -1,0 +1,24 @@
+.home-container {
+    background-color: black;
+    min-height: 100vh;
+    color: white;
+}
+
+.cards-list-container {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+}
+
+.cards-list-container::-webkit-scrollbar {
+    display: none;
+}
+
+.cards-list-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.category-section{
+    margin-bottom: 10px;
+}

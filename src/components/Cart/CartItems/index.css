@@ -1,0 +1,10 @@
+.cartitem-li-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 95%;
+}
+.items-quantity{
+    color: rgb(211, 183, 183);
+}
