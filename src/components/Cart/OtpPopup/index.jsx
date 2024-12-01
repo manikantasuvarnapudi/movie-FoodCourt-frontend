@@ -33,14 +33,12 @@ const OtpPopup = ({ isOpen, onClose, onVerify }) => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             className="otp-input"
+            inputMode="numeric"
           />
           <button type="submit" className="otp-button">
             Verify
           </button>
         </form>
-        <button onClick={onClose} className="otp-close-button">
-          Close
-        </button>
       </div>
     </Modal>
   );

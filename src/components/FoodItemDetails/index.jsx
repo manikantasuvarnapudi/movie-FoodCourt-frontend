@@ -81,7 +81,7 @@ const FoodItemDetails = () => {
 
     const renderSuccessView = () => {
         const { data } = apiResponse
-        return <div>
+        return <div className="details-container">
             <img src={data.imageURL} alt="image" className="fooditemdetails-image" />
             <div className="items-sub-contaner">
                 <h2>{data.name}</h2>

@@ -15,7 +15,7 @@ const Cart = () => {
     const [email, setEmail] = useState("")
     const [isOtpOpen, setOtpOpen] = useState(false);
     const [error, setError] = useState('');
-    const [orderId,setOrderId] = useState("")
+    const [orderId, setOrderId] = useState("")
     const [showPopup, setShowPopup] = useState(false);
 
     const totalAmmount = cartArray.reduce((accumeletor, cuurent) => accumeletor + cuurent.price * cuurent.quantity, 0)
@@ -26,7 +26,7 @@ const Cart = () => {
             const response = await fetch(`${backendUrl}/send-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ phone: phoneNumber, email: email.trim(),name:name.trim() }),
+                body: JSON.stringify({ phone: phoneNumber, email: email.trim(), name: name.trim() }),
             });
             if (response.ok) {
                 const data = await response.json();
@@ -55,30 +55,30 @@ const Cart = () => {
         setEmail(event.target.value)
     }
 
-    const handleVerify =  async (otp) => {
+    const handleVerify = async (otp) => {
         try {
             const response = await fetch(`${backendUrl}/verify-otp`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ phone:phoneNumber, otp:otp.trim() ,email:email.trim() }),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ phone: phoneNumber, otp: otp.trim(), email: email.trim() }),
             });
             const data = await response.json();
             if (data.success) {
                 console.log(data)
                 setOrderId(data.orderId)
                 setShowPopup(true)
-              console.log('OTP verified successfully!')
-              setError('');
+                console.log('OTP verified successfully!')
+                setError('');
             } else {
-               console.log('Invalid OTP. Please try again.')
-              setError(data.message || 'Invalid OTP. Please try again.');
+                console.log('Invalid OTP. Please try again.')
+                setError(data.message || 'Invalid OTP. Please try again.');
             }
-          } catch (err) {
+        } catch (err) {
             console.log('Error verifying OTP: ' + err.message)
             setError('Error verifying OTP: ' + err.message);
-          }
+        }
 
         setOtpOpen(false);
     };
@@ -86,21 +86,22 @@ const Cart = () => {
     const handleClosePopup = () => {
         setShowPopup(false);
         localStorage.removeItem('Items');
-      };
-    
+    };
+
 
     return <div>
         <Header />
         <div className="cart-continer">
+            <div className="merito">
             <ul className="cart-list-ul-container">
                 {cartArray.map((each) => <CartItems cartitem={each} key={each.id} />)}
             </ul>
             <div className="proced-container">
                 <div className="proced-buton-container">
-
                     <p className="total">Total</p>
                     <p className="total-ammount">&#8377; {totalAmmount}</p>
                 </div>
+            </div>
             </div>
             <form className="checkout-form-container" onSubmit={onSubmitingForm} >
                 <input type="text" value={name} onChange={onChangeName} className="input-feild" minLength="4" placeholder="name" required />
@@ -115,7 +116,7 @@ const Cart = () => {
                 onClose={() => setOtpOpen(false)}
                 onVerify={handleVerify}
             />
-         {showPopup && <OrderConfirmationPopup orderId={orderId} onClose={handleClosePopup} />}
+            {showPopup && <OrderConfirmationPopup orderId={orderId} onClose={handleClosePopup} />}
 
         </div>
     </div>
