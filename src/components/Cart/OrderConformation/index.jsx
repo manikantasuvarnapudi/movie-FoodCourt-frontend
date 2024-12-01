@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 
 const OrderConfirmationPopup = ({ orderId, onClose }) => {
-    console.log("abc",orderId)
+
   return (
     <div className="popup-overlay">
       <div className="popup">

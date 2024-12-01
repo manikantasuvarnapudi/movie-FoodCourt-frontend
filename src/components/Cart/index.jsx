@@ -85,6 +85,7 @@ const Cart = () => {
 
     const handleClosePopup = () => {
         setShowPopup(false);
+        localStorage.removeItem('Items');
       };
     
 
