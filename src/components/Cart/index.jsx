@@ -4,6 +4,7 @@ import Header from "../Header"
 import "./index.css"
 import CartItems from "./CartItems"
 import OtpPopup from "./OtpPopup"
+import OrderConfirmationPopup from "./OrderConformation"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
@@ -14,6 +15,8 @@ const Cart = () => {
     const [email, setEmail] = useState("")
     const [isOtpOpen, setOtpOpen] = useState(false);
     const [error, setError] = useState('');
+    const [orderId,setOrderId] = useState("")
+    const [showPopup, setShowPopup] = useState(false);
 
     const totalAmmount = cartArray.reduce((accumeletor, cuurent) => accumeletor + cuurent.price * cuurent.quantity, 0)
     console.log(totalAmmount)
@@ -63,6 +66,9 @@ const Cart = () => {
             });
             const data = await response.json();
             if (data.success) {
+                console.log(data)
+                setOrderId(data.orderId)
+                setShowPopup(true)
               console.log('OTP verified successfully!')
               setError('');
             } else {
@@ -76,6 +82,11 @@ const Cart = () => {
 
         setOtpOpen(false);
     };
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+      };
+    
 
     return <div>
         <Header />
@@ -103,6 +114,8 @@ const Cart = () => {
                 onClose={() => setOtpOpen(false)}
                 onVerify={handleVerify}
             />
+         {showPopup && <OrderConfirmationPopup orderId={orderId} onClose={handleClosePopup} />}
+
         </div>
     </div>
 }

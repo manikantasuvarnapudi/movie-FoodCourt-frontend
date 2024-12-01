@@ -89,7 +89,7 @@ const FoodItemDetails = () => {
                 <div className="quantity-container">
                     <p>Quantiry</p> <div className="quantity-buttons-container"><button type="button" className="minus" onClick={decreaseQuantity}>-</button><p>{quantity}</p><button type="button" onClick={increaseQuantity} className="plus">+</button></div>
                 </div>
-                <textarea value={instructions} onChange={onSetInstructions} placeholder="Speial Instructions" name="story" rows="5" cols="30">
+                <textarea value={instructions} onChange={onSetInstructions} placeholder="Speial Instructions" name="story" rows="5" cols="80">
                 </textarea>
 
                 <button type="button" onClick={onClickAdd} className="addto-cart">Add To Order</button>

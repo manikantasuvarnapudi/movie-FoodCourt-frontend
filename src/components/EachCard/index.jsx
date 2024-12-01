@@ -8,8 +8,8 @@ const EachCard = ({details}) => {
          <Link to={`/food/${id}/`} className="nav-link" >
          <li className="each-card-container">
              <img src={imageURL} alt="image" className="card-image"/>
-             <p>{name}</p>
-             <p>RS:{price}</p>
+             <p className="food-item-name">{name}</p>
+             <p className="item-cost"> &#8377; {price}</p>
          </li>
          </Link>
          </>
