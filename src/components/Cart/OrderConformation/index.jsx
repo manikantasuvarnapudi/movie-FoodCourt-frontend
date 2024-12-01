@@ -11,7 +11,7 @@ const OrderConfirmationPopup = ({ orderId, onClose }) => {
         </div>
         <div className="popup-body">
           <p>Your order has been placed successfully!</p>
-          <p><strong>Order ID: {orderId}</strong></p>
+          <p>Order ID: <strong>{orderId}</strong></p>
         </div>
         <button className="btn-close" onClick={onClose}>Close</button>
       </div>
