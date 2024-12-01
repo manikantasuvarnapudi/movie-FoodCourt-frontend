@@ -2,6 +2,8 @@
     background-color: rgb(54, 40, 40);
     min-height: 100vh;
     color: white;
+    margin-top: 60px;
+    padding-top: 10px;
 }
 .cart-list-ul-container{
     padding-top: 15px;
