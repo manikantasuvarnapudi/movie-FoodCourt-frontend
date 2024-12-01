@@ -26,7 +26,7 @@ const Cart = () => {
             const response = await fetch(`${backendUrl}/send-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ phone: phoneNumber, email: email }),
+                body: JSON.stringify({ phone: phoneNumber, email: email.trim(),name:name.trim() }),
             });
             if (response.ok) {
                 const data = await response.json();
@@ -62,7 +62,7 @@ const Cart = () => {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ phone:phoneNumber, otp:otp ,email:email }),
+              body: JSON.stringify({ phone:phoneNumber, otp:otp.trim() ,email:email.trim() }),
             });
             const data = await response.json();
             if (data.success) {
