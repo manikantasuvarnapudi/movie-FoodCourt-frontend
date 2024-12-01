@@ -18,7 +18,7 @@ function App() {
     <Router>
       <CartContext.Provider value={{cartArray,setCartArray}}>
       <Routes>
-          <Route path="/food" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/food/:id/" element={<FoodItemDetails/>} />
           <Route path="/cart" element={<Cart/>}/>
       </Routes>
