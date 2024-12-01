@@ -20,6 +20,7 @@ const Home = () => {
         data: null,
         errorMsg: null
     })
+    const [retryButton, setRetryButton] = useState(false)
 
     useEffect(() => {
         setApiResponse((prev) => ({
@@ -46,7 +47,12 @@ const Home = () => {
             }
         }
         getData()
-    }, [])
+    }, [retryButton])
+
+    
+    const onClickRetry = () => {
+        setRetryButton((prev) => !prev)
+    }
 
 
     const renderSuccessView = () => {
@@ -93,7 +99,7 @@ const Home = () => {
                 className="failure-image"
             />
             <p className="failure-text">Something went wrong. Please try again</p>
-            <button className="retryButton" onClick={onClickSearch} type="button">
+            <button className="retryButton" onClick={onClickRetry} type="button">
                 Try Again
             </button>
         </div>

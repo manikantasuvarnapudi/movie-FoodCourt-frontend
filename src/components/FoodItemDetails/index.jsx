@@ -23,7 +23,7 @@ const FoodItemDetails = () => {
         errorMsg: null
     })
     const [quantity,setQuantity] = useState(1)
-    const [buttonClick, setButtonClick] = useState(false)
+    const [retrybutton, setRetryButton] = useState(false)
     const [instructions, setInstructions] = useState("")
     const { cartArray, setCartArray } = useContext(CartContext)
     const params = useParams()
@@ -43,7 +43,7 @@ const FoodItemDetails = () => {
         }
 
         request()
-    }, [buttonClick])
+    }, [retrybutton])
 
     const onClickAdd = () => {
         const { data } = apiResponse
@@ -57,8 +57,8 @@ const FoodItemDetails = () => {
         setInstructions(event.target.value)
     }
 
-    const onClickSearch = () => {
-        setButtonClick((prevState) => !prevState)
+    const onClickRetry = () => {
+        setRetryButton((prevState) => !prevState)
     }
 
     const decreaseQuantity = () => {
@@ -107,7 +107,7 @@ const FoodItemDetails = () => {
                 className="failure-image"
             />
             <p className="failure-text">Something went wrong. Please try again</p>
-            <button className="retryButton" onClick={onClickSearch} type="button">
+            <button className="retryButton" onClick={onClickRetry} type="button">
                 Try Again
             </button>
         </div>
