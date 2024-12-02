@@ -24,7 +24,7 @@ const OtpPopup = ({ isOpen, onClose, onVerify }) => {
     >
       <div className="otp-container">
         <h2>OTP Verification</h2>
-        <p>Please enter the OTP sent to your registered email or phone.</p>
+        <p>Please enter the OTP sent to your registered <strong>Email</strong> or <strong>phone</strong>.</p>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

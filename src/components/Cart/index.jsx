@@ -1,10 +1,11 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CartContext } from "../../App"
 import Header from "../Header"
 import "./index.css"
 import CartItems from "./CartItems"
 import OtpPopup from "./OtpPopup"
 import OrderConfirmationPopup from "./OrderConformation"
+import { useNavigate } from "react-router-dom"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
@@ -17,9 +18,17 @@ const Cart = () => {
     const [error, setError] = useState('');
     const [orderId, setOrderId] = useState("")
     const [showPopup, setShowPopup] = useState(false);
+    const navigate = useNavigate();
+
+
+
+    useEffect(() => {
+          if(cartArray.length <= 0){
+            navigate('/'); 
+          }     
+    },[navigate,cartArray.length])
 
     const totalAmmount = cartArray.reduce((accumeletor, cuurent) => accumeletor + cuurent.price * cuurent.quantity, 0)
-    console.log(totalAmmount)
     const onSubmitingForm = async (event) => {
         event.preventDefault()
         try {
@@ -30,14 +39,13 @@ const Cart = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                //console.log(data.message);
                 setOtpOpen(true)
             } else {
                 const error = await response.json();
-                console.error("Error requesting OTP:", error.message);
+                alert(`Error requesting OTP: ${error.message}`)
             }
         } catch (error) {
-            console.error("Network error:", error.message);
+              alert(`Network error: ${error.message}`)
         }
 
 
@@ -66,17 +74,15 @@ const Cart = () => {
             });
             const data = await response.json();
             if (data.success) {
-                console.log(data)
                 setOrderId(data.orderId)
                 setShowPopup(true)
-                console.log('OTP verified successfully!')
                 setError('');
             } else {
-                console.log('Invalid OTP. Please try again.')
+                alert('Invalid OTP. Please try again.')
                 setError(data.message || 'Invalid OTP. Please try again.');
             }
         } catch (err) {
-            console.log('Error verifying OTP: ' + err.message)
+            alert('Error verifying OTP: ' + err.message)
             setError('Error verifying OTP: ' + err.message);
         }
 
@@ -84,8 +90,10 @@ const Cart = () => {
     };
 
     const handleClosePopup = () => {
-        setShowPopup(false);
         localStorage.removeItem('Items');
+        setShowPopup(false);
+        navigate("/")
+        
     };
 
 

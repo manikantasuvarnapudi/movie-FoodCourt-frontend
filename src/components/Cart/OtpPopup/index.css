@@ -84,4 +84,8 @@
       opacity: 1;
     }
   }
+
+  strong{
+    color: red;
+  }
   

@@ -1,10 +1,12 @@
 import { useEffect, useState, useContext } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link,  useParams } from "react-router-dom"
 import { ThreeDots } from 'react-loader-spinner'
 import { CartContext } from "../../App.jsx"
 import Header from "../Header/index.jsx"
 import "./index.css"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { MdArrowBackIos } from "react-icons/md";
+import { MdOutlineArrowForwardIos } from "react-icons/md";
 
 
 
@@ -94,7 +96,8 @@ const FoodItemDetails = () => {
                 <textarea value={instructions} onChange={onSetInstructions} placeholder="Speial Instructions" name="story" rows="5" cols="80">
                 </textarea>
 
-                <button type="button" onClick={onClickAdd} className="addto-cart"> {itemAdded ? "Item Added" : "Add To Order"}  </button>
+                {itemAdded ?  <Link to="/" className="nav-link"><button type="button" onClick={onClickAdd} className="addto-cart"> <MdArrowBackIos/> Item Added </button> </Link> : <button type="button" onClick={onClickAdd} className="addto-cart">  Add To Order </button>} 
+                {itemAdded && <Link to="/cart" className="nav-link"> <button type="button" className="checkout-cart"> CheckOut <MdOutlineArrowForwardIos/> </button> </Link>}
             </div>
         </div>
 
