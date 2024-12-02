@@ -59,6 +59,18 @@ const Home = () => {
         const { data } = apiResponse
         return <div>
             <div className="category-section">
+                <h3>Popcorn</h3>
+                <ul className="cards-list-container">
+                    {data.filter((each) => each.category === "popcorn").map(each => <EachCard key={each.id} details={each} />)}
+                </ul>
+            </div>
+            <div className="category-section">
+                <h3>Rolls</h3>
+                <ul className="cards-list-container">
+                    {data.filter((each) => each.category === "Rolls").map(each => <EachCard key={each.id} details={each} />)}
+                </ul>
+            </div>
+            <div className="category-section">
                 <h3>Cold Beverages</h3>
                 <ul className="cards-list-container">
                     {data.filter((each) => each.category === "ColdBeverages").map(each => <EachCard key={each.id} details={each} />)}
@@ -88,6 +100,7 @@ const Home = () => {
                     {data.filter((each) => each.category === "frenchfries").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
+            
         </div>
     }
 
