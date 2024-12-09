@@ -21,7 +21,7 @@ const Cart = () => {
     const navigate = useNavigate();
 
 
-
+    console.log("cart",cartArray)
     useEffect(() => {
           if(cartArray.length <= 0){
             navigate('/'); 
@@ -65,12 +65,13 @@ const Cart = () => {
 
     const handleVerify = async (otp) => {
         try {
+            const orderDetails = JSON.stringify(cartArray[0])
             const response = await fetch(`${backendUrl}/verify-otp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ phone: phoneNumber, otp: otp.trim(), email: email.trim() }),
+                body: JSON.stringify({ phone: phoneNumber, otp: otp.trim(), email: email.trim(),name: name.trim(), order: orderDetails }),
             });
             const data = await response.json();
             if (data.success) {
