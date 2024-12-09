@@ -77,7 +77,7 @@ const Cart = () => {
                 setShowPopup(true)
                 setError('');
             } else {
-                alert('Invalid OTP. Please try again.')
+                alert(`Invalid OTP. Please try again. ${data.message}`)
                 setError(data.message || 'Invalid OTP. Please try again.');
             }
         } catch (err) {
