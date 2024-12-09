@@ -65,7 +65,7 @@ const Cart = () => {
 
     const handleVerify = async (otp) => {
         try {
-            const orderDetails = JSON.stringify(cartArray[0])
+            const orderDetails = JSON.stringify(cartArray)
             const response = await fetch(`${backendUrl}/verify-otp`, {
                 method: 'POST',
                 headers: {
