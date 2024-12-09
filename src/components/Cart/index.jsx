@@ -20,8 +20,6 @@ const Cart = () => {
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
 
-
-    console.log("cart",cartArray)
     useEffect(() => {
           if(cartArray.length <= 0){
             navigate('/'); 
