@@ -15,7 +15,6 @@ const Cart = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [isOtpOpen, setOtpOpen] = useState(false);
-    const [error, setError] = useState('');
     const [orderId, setOrderId] = useState("")
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
@@ -78,11 +77,9 @@ const Cart = () => {
                 setError('');
             } else {
                 alert(`Invalid OTP. Please try again. ${data.message}`)
-                setError(data.message || 'Invalid OTP. Please try again.');
             }
         } catch (err) {
             alert('Error verifying OTP: ' + err.message)
-            setError('Error verifying OTP: ' + err.message);
         }
 
         setOtpOpen(false);
@@ -90,6 +87,7 @@ const Cart = () => {
 
     const handleClosePopup = () => {
         localStorage.removeItem('Items');
+        console.log(localStorage.getItem("Items"))
         setShowPopup(false);
         navigate("/")
         
