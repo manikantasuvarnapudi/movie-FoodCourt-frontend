@@ -74,7 +74,6 @@ const Cart = () => {
             if (data.success) {
                 setOrderId(data.orderId)
                 setShowPopup(true)
-                setError('');
             } else {
                 alert(`Invalid OTP. Please try again. ${data.message}`)
             }
