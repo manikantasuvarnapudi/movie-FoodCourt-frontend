@@ -54,10 +54,16 @@ const Home = () => {
         setRetryButton((prev) => !prev)
     }
 
-
+    
     const renderSuccessView = () => {
         const { data } = apiResponse
         return <div>
+            <div className="category-section">
+                <h3>Pizzas</h3>
+                <ul className="cards-list-container">
+                    {data.filter((each) => each.category === "Pizza").map(each => <EachCard key={each.id} details={each} />)}
+                </ul>
+            </div>
             <div className="category-section">
                 <h3>Popcorn</h3>
                 <ul className="cards-list-container">
@@ -140,7 +146,7 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className="home-bg-container">
             <Header />
             <div className="home-container">
                 {renderFoodItemsFromResponse()}

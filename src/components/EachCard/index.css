@@ -3,6 +3,12 @@
     height: 120px;
     border-radius: 4px;
 }
+@media screen and (min-width: 576px) {
+    .card-image{
+        width: 280px;
+        height: 180px;
+    }
+}
 .each-card-container{
     margin: 5px;
 }
@@ -13,7 +19,17 @@
 .item-cost{
     color: rgb(160, 144, 144);
 }
+@media screen and (min-width: 576px) {
+    .item-cost{
+        font-size: 19px;
+    }
+}
 .food-item-name{
     font-family: "Roboto";
     font-size: 16px;
+}
+@media screen and (min-width: 576px) {
+    .food-item-name{
+        font-size: 18px;
+    }
 }

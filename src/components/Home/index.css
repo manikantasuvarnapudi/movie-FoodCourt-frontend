@@ -1,12 +1,24 @@
-.home-container {
+.home-bg-container{
     background-color: black;
     min-height: 100vh;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.home-container {
+    width: 100%;
     color: white;
     margin-top: 60px;
-    padding-top: 15px;
+    align-self: center;
+}
+@media screen and (min-width:576px) {
+    .home-container{
+        width: 95%;
+    }
 }
 h3{
     margin-left: 5px;
+    font-family: sans-serif;
 }
 
 .cards-list-container {

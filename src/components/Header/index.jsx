@@ -38,11 +38,15 @@ const Header = () => {
 
                 <div className="nav-childs">
                     <Link className="nav-link" to="/">
-                        <IoFastFoodOutline size={25} />
+                        <div className="food-items-container-icon">
+                        <p className="food-items-name">FoodItems</p>
+                        <IoFastFoodOutline className="food-icon" />
+                        </div>
                     </Link>
                     <Link className="nav-link" to="/cart">
                         <div className="cart-container">
-                            <BsCart className="cart-icon" size={25} />
+                            <p className="cart-name">Cart</p>
+                            <BsCart className="cart-icon" />
                             <span className={`cart-count 
                                                    ${animate.scale ? "scale-effect" : ""} 
                                                    ${animate.pulse ? "pulse-effect" : ""} 
