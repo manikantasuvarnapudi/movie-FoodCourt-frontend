@@ -1,14 +1,21 @@
-.cart-continer{
+.cart-bg-container{
+    display: flex;
+    flex-direction: column;
     background-color: rgb(54, 40, 40);
     min-height: 100vh;
+    padding-top: 10px;
+}
+.cart-continer{
+    align-self: center;
     color: white;
     margin-top: 60px;
-    padding-top: 10px;
+    width: 100%;
 }
 @media screen and (min-width: 576px) {
     .cart-continer{
         display: flex;
         flex-direction: row;
+        width: 95%;
     }
 }
 .cart-list-ul-container{

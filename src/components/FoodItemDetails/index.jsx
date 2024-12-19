@@ -132,10 +132,11 @@ const FoodItemDetails = () => {
         }
     }
 
-    return (<div>
+    return (<div className="fooditemsdetails-bg-container">
         <Header />
         <div className="fooditemdetails-container">
             {renderFoodItemFromResponse()}
+            <img className="safety-image" src="https://res.cloudinary.com/djszohdjt/image/upload/v1734590517/kkusxxd6fyman4ctit2n.jpg" alt="food-safety-image"/>
         </div>
 
     </div>)

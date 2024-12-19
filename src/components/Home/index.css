@@ -16,6 +16,37 @@
         width: 95%;
     }
 }
+.movies-container{
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    list-style-type: none;
+    margin-bottom: 15px;
+}
+.movie-poster{
+    height: 210px;
+    width: 190px;
+    margin: 10px;
+    border-radius: 3px;
+}
+::-webkit-scrollbar {
+    width: 2px; /* Change width */
+    height: 2px; /* Change height for horizontal scrollbars */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #201c1c; /* Scrollbar thumb color */
+    border-radius: 4px; /* Optional: Rounded corners */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Thumb color on hover */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #181616; /* Track color */
+  }
+  
 h3{
     margin-left: 5px;
     font-family: sans-serif;

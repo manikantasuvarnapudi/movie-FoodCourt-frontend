@@ -93,7 +93,7 @@ const Cart = () => {
     };
 
 
-    return <div>
+    return <div className="cart-bg-container">
         <Header />
         <div className="cart-continer">
             <div className="merito">

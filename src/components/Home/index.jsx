@@ -4,6 +4,9 @@ import { ThreeDots } from 'react-loader-spinner'
 import "./index.css"
 import EachCard from "../EachCard"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
 const apiStatusConstants = {
     initial: "INITIAL",
@@ -17,38 +20,48 @@ const apiStatusConstants = {
 const Home = () => {
     const [apiResponse, setApiResponse] = useState({
         status: apiStatusConstants.initial,
-        data: null,
-        errorMsg: null
-    })
-    const [retryButton, setRetryButton] = useState(false)
+        foodData: null,
+        movieData: null,
+        errorMsg: null,
+      });
+    
+      const [retryButton, setRetryButton] = useState(false);
+    
+      useEffect(() => {
+        const fetchData = async () => {
+          setApiResponse((prev) => ({ ...prev, status: apiStatusConstants.inprogress }));
+    
+          try {
+            // food data
+            const foodResponse = await fetch(`${backendUrl}/food`);
+            if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
+            const foodData = await foodResponse.json();
+            
+    
+            // popular movies data
+            const moviesResponse = await fetch(`${baseUrl}/movie/upcoming?api_key=${apiKey}&region=IN`);
+            if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
+            const movieData = await moviesResponse.json();
+            
 
-    useEffect(() => {
-        setApiResponse((prev) => ({
-            ...prev,
-            status: apiStatusConstants.inprogress,
-        }));
-        const getData = async () => {
-            try {
-
-                const url = `${backendUrl}/food`
-                const response = await fetch(url)
-                const responseData = await response.json()
-                setApiResponse({
-                    status: apiStatusConstants.success,
-                    data: responseData,
-                    errorMsg: null,
-                })
-            } catch (error) {
-                setApiResponse((prev) => ({
-                    ...prev,
-                    errorMsg: error,
-                    status: apiStatusConstants.failure,
-                }));
-            }
-        }
-        getData()
-    }, [retryButton])
-
+            setApiResponse({
+              status: apiStatusConstants.success,
+              foodData,
+              movieData,
+              errorMsg: null,
+            });
+          } catch (error) {
+            setApiResponse({
+              status: apiStatusConstants.failure,
+              foodData: null,
+              movieData: null,
+              errorMsg: error.message || 'Something went wrong',
+            });
+          }
+        };
+    
+        fetchData();
+      }, [retryButton]);
     
     const onClickRetry = () => {
         setRetryButton((prev) => !prev)
@@ -56,55 +69,73 @@ const Home = () => {
 
     
     const renderSuccessView = () => {
-        const { data } = apiResponse
+        const { foodData,movieData } = apiResponse
+        const filterMovieData = movieData.results.filter((each) => each.poster_path !== null)
+        const southIndianLanguages = ["te", "ta", "ml", "kn"];
+        const southIndianMovies = filterMovieData.filter((movie) =>
+          southIndianLanguages.includes(movie.original_language)
+        );
+        const otherMovies = filterMovieData.filter(
+          (movie) => !southIndianLanguages.includes(movie.original_language)
+        );
+        const totalMovies = [...southIndianMovies, ...otherMovies]
         return <div>
+            
             <div className="category-section">
                 <h3>Pizzas</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "Pizza").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "Pizza").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
                 <h3>Popcorn</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "popcorn").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "popcorn").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
                 <h3>Rolls</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "Rolls").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "Rolls").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
                 <h3>Cold Beverages</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "ColdBeverages").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "ColdBeverages").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
                 <h3>Hot Beverages</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "HotBeverages").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "HotBeverages").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
                 <h3>Burgers</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "burgers").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "burgers").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
+
             <div className="category-section">
                 <h3>Sandwiches</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "sandwiches").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "sandwiches").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
                 <h3>French Fries</h3>
                 <ul className="cards-list-container">
-                    {data.filter((each) => each.category === "frenchfries").map(each => <EachCard key={each.id} details={each} />)}
+                    {foodData.filter((each) => each.category === "frenchfries").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
+            </div>
+            <div>
+            <h3>Upcoming Movies</h3>
+            <ul className="movies-container">
+                {totalMovies.map((each) => <li key={each.id}> <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${each.poster_path}`} alt={each.title} />
+                </li>)}
+            </ul>
             </div>
             
         </div>
