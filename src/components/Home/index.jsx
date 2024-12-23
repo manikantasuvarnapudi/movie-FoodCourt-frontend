@@ -33,7 +33,7 @@ const Home = () => {
 
             try {
                 // food data
-                const foodResponse = await fetch(`${backendUrl}/food`);
+                const foodResponse = await fetch(`${backendUrl}/`);
                 console.log(foodResponse)
                 if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
                 const foodData = await foodResponse.json();
