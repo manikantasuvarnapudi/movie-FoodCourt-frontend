@@ -34,12 +34,14 @@ const Home = () => {
             try {
                 // food data
                 const foodResponse = await fetch(`${backendUrl}/food`);
+                console.log(foodResponse)
                 if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
                 const foodData = await foodResponse.json();
 
 
                 // popular movies data
                 const moviesResponse = await fetch(`${baseUrl}/movie/upcoming?api_key=${apiKey}&region=IN`);
+                console.log(moviesResponse)
                 if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
                 const movieData = await moviesResponse.json();
 
@@ -51,6 +53,7 @@ const Home = () => {
                     errorMsg: null,
                 });
             } catch (error) {
+                console.log(error)
                 setApiResponse({
                     status: apiStatusConstants.failure,
                     foodData: null,
