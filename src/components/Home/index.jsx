@@ -23,64 +23,64 @@ const Home = () => {
         foodData: null,
         movieData: null,
         errorMsg: null,
-      });
-    
-      const [retryButton, setRetryButton] = useState(false);
-    
-      useEffect(() => {
-        const fetchData = async () => {
-          setApiResponse((prev) => ({ ...prev, status: apiStatusConstants.inprogress }));
-    
-          try {
-            // food data
-            const foodResponse = await fetch(`${backendUrl}/food`);
-            if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
-            const foodData = await foodResponse.json();
-            
-    
-            // popular movies data
-            const moviesResponse = await fetch(`${baseUrl}/movie/upcoming?api_key=${apiKey}&region=IN`);
-            if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
-            const movieData = await moviesResponse.json();
-            
+    });
 
-            setApiResponse({
-              status: apiStatusConstants.success,
-              foodData,
-              movieData,
-              errorMsg: null,
-            });
-          } catch (error) {
-            setApiResponse({
-              status: apiStatusConstants.failure,
-              foodData: null,
-              movieData: null,
-              errorMsg: error.message || 'Something went wrong',
-            });
-          }
+    const [retryButton, setRetryButton] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setApiResponse((prev) => ({ ...prev, status: apiStatusConstants.inprogress }));
+
+            try {
+                // food data
+                const foodResponse = await fetch(`${backendUrl}/food`);
+                if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
+                const foodData = await foodResponse.json();
+
+
+                // popular movies data
+                const moviesResponse = await fetch(`${baseUrl}/movie/upcoming?api_key=${apiKey}&region=IN`);
+                if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
+                const movieData = await moviesResponse.json();
+
+
+                setApiResponse({
+                    status: apiStatusConstants.success,
+                    foodData,
+                    movieData,
+                    errorMsg: null,
+                });
+            } catch (error) {
+                setApiResponse({
+                    status: apiStatusConstants.failure,
+                    foodData: null,
+                    movieData: null,
+                    errorMsg: error.message || 'Something went wrong',
+                });
+            }
         };
-    
+
         fetchData();
-      }, [retryButton]);
-    
+    }, [retryButton]);
+
     const onClickRetry = () => {
         setRetryButton((prev) => !prev)
     }
 
-    
+
     const renderSuccessView = () => {
-        const { foodData,movieData } = apiResponse
+        const { foodData, movieData } = apiResponse
         const filterMovieData = movieData.results.filter((each) => each.poster_path !== null)
         const southIndianLanguages = ["te", "ta", "ml", "kn"];
         const southIndianMovies = filterMovieData.filter((movie) =>
-          southIndianLanguages.includes(movie.original_language)
+            southIndianLanguages.includes(movie.original_language)
         );
         const otherMovies = filterMovieData.filter(
-          (movie) => !southIndianLanguages.includes(movie.original_language)
+            (movie) => !southIndianLanguages.includes(movie.original_language)
         );
         const totalMovies = [...southIndianMovies, ...otherMovies]
         return <div>
-            
+
             <div className="category-section">
                 <h3>Pizzas</h3>
                 <ul className="cards-list-container">
@@ -103,6 +103,12 @@ const Home = () => {
                 <h3>Cold Beverages</h3>
                 <ul className="cards-list-container">
                     {foodData.filter((each) => each.category === "ColdBeverages").map(each => <EachCard key={each.id} details={each} />)}
+                </ul>
+            </div>
+            <div className="category-section">
+                <h3>Desserts</h3>
+                <ul className="cards-list-container">
+                    {foodData.filter((each) => each.category === "Desserts").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
             <div className="category-section">
@@ -131,13 +137,13 @@ const Home = () => {
                 </ul>
             </div>
             <div>
-            <h3>Upcoming Movies</h3>
-            <ul className="movies-container">
-                {totalMovies.map((each) => <li key={each.id}> <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${each.poster_path}`} alt={each.title} />
-                </li>)}
-            </ul>
+                <h3>Upcoming Movies</h3>
+                <ul className="movies-container">
+                    {totalMovies.map((each) => <li key={each.id}> <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${each.poster_path}`} alt={each.title} />
+                    </li>)}
+                </ul>
             </div>
-            
+
         </div>
     }
 

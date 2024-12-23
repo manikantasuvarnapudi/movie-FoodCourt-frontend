@@ -58,6 +58,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin: 10px;
 }
 
 .btn-close:hover {
@@ -102,6 +103,7 @@
     .btn-close {
         font-size: 14px;
         padding: 10px 20px;
+        margin: 10px;
     }
 }
 
@@ -123,5 +125,7 @@
     .btn-close {
         font-size: 12px;
         padding: 8px 15px;
+        margin: 10px;
     }
 }
+

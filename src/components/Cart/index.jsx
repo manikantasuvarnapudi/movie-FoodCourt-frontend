@@ -6,11 +6,13 @@ import CartItems from "./CartItems"
 import OtpPopup from "./OtpPopup"
 import OrderConfirmationPopup from "./OrderConformation"
 import { useNavigate } from "react-router-dom"
+import { ColorRing } from "react-loader-spinner"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
+
 const Cart = () => {
-    const { cartArray } = useContext(CartContext)
+    const { cartArray,setCartArray } = useContext(CartContext)
     const [phoneNumber, setPhoneNumber] = useState("")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -18,6 +20,7 @@ const Cart = () => {
     const [orderId, setOrderId] = useState("")
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
+    const [buttonLoader,setButtonLoader] = useState(false)
 
     useEffect(() => {
           if(cartArray.length <= 0){
@@ -28,6 +31,7 @@ const Cart = () => {
     const totalAmmount = cartArray.reduce((accumeletor, cuurent) => accumeletor + cuurent.price * cuurent.quantity, 0)
     const onSubmitingForm = async (event) => {
         event.preventDefault()
+        setButtonLoader(true)
         try {
             const response = await fetch(`${backendUrl}/send-otp`, {
                 method: "POST",
@@ -37,12 +41,15 @@ const Cart = () => {
             if (response.ok) {
                 const data = await response.json();
                 setOtpOpen(true)
+                setButtonLoader(false)
             } else {
                 const error = await response.json();
                 alert(`Error requesting OTP: ${error.message}`)
+                setButtonLoader(false)
             }
         } catch (error) {
               alert(`Network error: ${error.message}`)
+              setButtonLoader(false)
         }
 
 
@@ -86,7 +93,7 @@ const Cart = () => {
 
     const handleClosePopup = () => {
         localStorage.removeItem('Items');
-        console.log(localStorage.getItem("Items"))
+        setCartArray([])
         setShowPopup(false);
         navigate("/")
         
@@ -111,7 +118,8 @@ const Cart = () => {
                 <input type="text" value={name} onChange={onChangeName} className="input-feild" minLength="4" placeholder="name" required />
                 <input type="email" value={email} onChange={onChangeEmail} className="input-feild" placeholder="email" required />
                 <input type="tel" value={phoneNumber} pattern="[0-9]{10}" onChange={onChangeNumber} className="input-feild" inputMode="numeric" minLength="10" maxLength="10" placeholder="Enter phone number" required />
-                <button className="proceed-button" type="submit" >Proceed</button>
+                {buttonLoader ? <ColorRing/>: <button className="proceed-button" type="submit" >Proceed </button>}
+                
             </form>
         </div>
         <div>
