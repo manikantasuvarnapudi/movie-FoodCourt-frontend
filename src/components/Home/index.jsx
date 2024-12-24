@@ -22,7 +22,8 @@ const Home = () => {
         status: apiStatusConstants.initial,
         foodData: null,
         movieData: null,
-        errorMsg: null,
+        foodErrorMsg: null,
+        movieErrorMsg: null
     });
 
     const [retryButton, setRetryButton] = useState(false);
@@ -30,46 +31,37 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             setApiResponse((prev) => ({ ...prev, status: apiStatusConstants.inprogress }));
-            try {
-                const foodResponse = await fetch(`${backendUrl}/`);
-                console.log(foodResponse);
-                if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
+            const foodResponse = await fetch(`${backendUrl}/`);
+            console.log(foodResponse)
+            if (foodResponse.ok === true) {
                 const foodData = await foodResponse.json();
                 console.log(foodData);
-            
-                // const movieOptions = {
-                //     method: 'GET',
-                //     headers: {
-                //         accept: 'application/json',
-                //         Authorization: `Bearer ${apiKey}`,
-                //     },
-                // };
-                // const moviesResponse = await fetch(
-                //     `${baseUrl}/3/movie/upcoming?language=en-US&region=IN&page=1`,
-                //     movieOptions
-                // );
-                // console.log(moviesResponse);
-                // if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
-                // const movieData = await moviesResponse.json();
-                // console.log(movieData);
-            
-                setApiResponse({
-                    status: apiStatusConstants.success,
-                    foodData,
-                    movieData: null,
-                    errorMsg: null,
-                });
-            } catch (error) {
-                console.log(error)
-                console.error(error);
-                setApiResponse({
-                    status: apiStatusConstants.failure,
-                    foodData: null,
-                    movieData: null,
-                    errorMsg: error.message || 'Something went wrong',
-                });
+                setApiResponse((prev) => ({...prev, status: apiStatusConstants.success,foodData: foodData}));
+            } else {
+                setApiResponse((prev) => ({...prev,foodErrorMsg: "Someting went to wrong when food fetching"}));
             }
-            
+
+            const movieOptions = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${apiKey}`,
+                },
+            };
+            const moviesResponse = await fetch(`${baseUrl}/3/movie/upcoming?language=en-US&region=IN&page=1`, movieOptions);
+            console.log(moviesResponse)
+            if (moviesResponse.ok === true) {
+                const movieData = await moviesResponse.json();
+                console.log(movieData);
+                setApiResponse((prev) => ({...prev, status: apiStatusConstants.success,movieData: movieData}));
+
+            } else {
+                setApiResponse((prev) => ({...prev,movieErrorMsg: "Someting went to wrong when movie fetching"}));
+            }
+
+
+
+
         };
 
         fetchData();
