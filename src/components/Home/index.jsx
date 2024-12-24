@@ -37,22 +37,21 @@ const Home = () => {
                 const foodData = await foodResponse.json();
                 console.log(foodData);
             
-                const movieOptions = {
-                    method: 'GET',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: `Bearer ${apiKey}`,
-                    },
-                };
-            
-                const moviesResponse = await fetch(
-                    `${baseUrl}/3/movie/upcoming?language=en-US&region=IN&page=1`,
-                    movieOptions
-                );
-                console.log(moviesResponse);
-                if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
-                const movieData = await moviesResponse.json();
-                console.log(movieData);
+                // const movieOptions = {
+                //     method: 'GET',
+                //     headers: {
+                //         accept: 'application/json',
+                //         Authorization: `Bearer ${apiKey}`,
+                //     },
+                // };
+                // const moviesResponse = await fetch(
+                //     `${baseUrl}/3/movie/upcoming?language=en-US&region=IN&page=1`,
+                //     movieOptions
+                // );
+                // console.log(moviesResponse);
+                // if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
+                // const movieData = await moviesResponse.json();
+                // console.log(movieData);
             
                 setApiResponse({
                     status: apiStatusConstants.success,
@@ -83,15 +82,15 @@ const Home = () => {
 
     const renderSuccessView = () => {
         const { foodData, movieData } = apiResponse
-        const filterMovieData = movieData.results.filter((each) => each.poster_path !== null)
-        const southIndianLanguages = ["te", "ta", "ml", "kn"];
-        const southIndianMovies = filterMovieData.filter((movie) =>
-            southIndianLanguages.includes(movie.original_language)
-        );
-        const otherMovies = filterMovieData.filter(
-            (movie) => !southIndianLanguages.includes(movie.original_language)
-        );
-        const totalMovies = [...southIndianMovies, ...otherMovies]
+        // const filterMovieData = movieData.results.filter((each) => each.poster_path !== null)
+        // const southIndianLanguages = ["te", "ta", "ml", "kn"];
+        // const southIndianMovies = filterMovieData.filter((movie) =>
+        //     southIndianLanguages.includes(movie.original_language)
+        // );
+        // const otherMovies = filterMovieData.filter(
+        //     (movie) => !southIndianLanguages.includes(movie.original_language)
+        // );
+        // const totalMovies = [...southIndianMovies, ...otherMovies]
         return <div>
 
             <div className="category-section">
@@ -151,10 +150,10 @@ const Home = () => {
             </div>
             <div>
                 <h3>Upcoming Movies</h3>
-                <ul className="movies-container">
-                    {totalMovies.map((each) => <li key={each.id}> <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${each.poster_path}`} alt={each.title} />
+                {/* <ul className="movies-container">
+                    {totalMovies.length > 0 && totalMovies.map((each) => <li key={each.id}> <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${each.poster_path}`} alt={each.title} />
                     </li>)}
-                </ul>
+                </ul> */}
             </div>
 
         </div>
