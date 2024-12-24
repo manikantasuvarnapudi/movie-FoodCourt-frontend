@@ -61,6 +61,7 @@ const Home = () => {
                     errorMsg: null,
                 });
             } catch (error) {
+                console.log(error)
                 console.error(error);
                 setApiResponse({
                     status: apiStatusConstants.failure,
