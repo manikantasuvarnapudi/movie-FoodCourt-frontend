@@ -21,9 +21,7 @@ const Home = () => {
     const [apiResponse, setApiResponse] = useState({
         status: apiStatusConstants.initial,
         foodData: null,
-        movieData: null,
-        foodErrorMsg: null,
-        movieErrorMsg: null
+        errorMsg: null,
     });
 
     const [retryButton, setRetryButton] = useState(false);
@@ -32,36 +30,17 @@ const Home = () => {
         const fetchData = async () => {
             setApiResponse((prev) => ({ ...prev, status: apiStatusConstants.inprogress }));
             const foodResponse = await fetch(`${backendUrl}/`);
-            console.log(foodResponse)
             if (foodResponse.ok === true) {
                 const foodData = await foodResponse.json();
                 console.log(foodData);
-                setApiResponse((prev) => ({...prev, status: apiStatusConstants.success,foodData: foodData}));
+                setApiResponse({
+                         status: apiStatusConstants.success,
+                         foodData,
+                         errorMsg: null
+                });
             } else {
-                setApiResponse((prev) => ({...prev,foodErrorMsg: "Someting went to wrong when food fetching"}));
+                setApiResponse({status: apiStatusConstants.failure,foodData: null ,errorMsg: "Someting went to wrong when food fetching"});
             }
-
-            const movieOptions = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${apiKey}`,
-                },
-            };
-            const moviesResponse = await fetch(`${baseUrl}/3/movie/upcoming?language=en-US&region=IN&page=1`, movieOptions);
-            console.log(moviesResponse)
-            if (moviesResponse.ok === true) {
-                const movieData = await moviesResponse.json();
-                console.log(movieData);
-                setApiResponse((prev) => ({...prev, status: apiStatusConstants.success,movieData: movieData}));
-
-            } else {
-                setApiResponse((prev) => ({...prev,movieErrorMsg: "Someting went to wrong when movie fetching"}));
-            }
-
-
-
-
         };
 
         fetchData();
@@ -73,16 +52,7 @@ const Home = () => {
 
 
     const renderSuccessView = () => {
-        const { foodData, movieData } = apiResponse
-        // const filterMovieData = movieData.results.filter((each) => each.poster_path !== null)
-        // const southIndianLanguages = ["te", "ta", "ml", "kn"];
-        // const southIndianMovies = filterMovieData.filter((movie) =>
-        //     southIndianLanguages.includes(movie.original_language)
-        // );
-        // const otherMovies = filterMovieData.filter(
-        //     (movie) => !southIndianLanguages.includes(movie.original_language)
-        // );
-        // const totalMovies = [...southIndianMovies, ...otherMovies]
+        const { foodData} = apiResponse
         return <div>
 
             <div className="category-section">
@@ -140,14 +110,6 @@ const Home = () => {
                     {foodData.filter((each) => each.category === "frenchfries").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
-            <div>
-                <h3>Upcoming Movies</h3>
-                {/* <ul className="movies-container">
-                    {totalMovies.length > 0 && totalMovies.map((each) => <li key={each.id}> <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${each.poster_path}`} alt={each.title} />
-                    </li>)}
-                </ul> */}
-            </div>
-
         </div>
     }
 
