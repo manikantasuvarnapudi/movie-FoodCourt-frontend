@@ -30,21 +30,30 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             setApiResponse((prev) => ({ ...prev, status: apiStatusConstants.inprogress }));
-
             try {
                 const foodResponse = await fetch(`${backendUrl}/`);
-                console.log(foodResponse)
+                console.log(foodResponse);
                 if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
                 const foodData = await foodResponse.json();
-                console.log(foodData)
-
-                const moviesResponse = await fetch(`${baseUrl}/3/movie/upcoming?api_key=${apiKey}&region=IN`);
-                console.log(moviesResponse)
-                console.log(moviesResponse.status)
+                console.log(foodData);
+            
+                const movieOptions = {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: `Bearer ${apiKey}`,
+                    },
+                };
+            
+                const moviesResponse = await fetch(
+                    `${baseUrl}/3/movie/upcoming?language=en-US&region=IN&page=1`,
+                    movieOptions
+                );
+                console.log(moviesResponse);
                 if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
                 const movieData = await moviesResponse.json();
-                console.log(movieData)
-
+                console.log(movieData);
+            
                 setApiResponse({
                     status: apiStatusConstants.success,
                     foodData,
@@ -52,7 +61,7 @@ const Home = () => {
                     errorMsg: null,
                 });
             } catch (error) {
-                console.log(error)
+                console.error(error);
                 setApiResponse({
                     status: apiStatusConstants.failure,
                     foodData: null,
@@ -60,6 +69,7 @@ const Home = () => {
                     errorMsg: error.message || 'Something went wrong',
                 });
             }
+            
         };
 
         fetchData();
