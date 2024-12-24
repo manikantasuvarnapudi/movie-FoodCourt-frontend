@@ -56,7 +56,7 @@ const Home = () => {
                 setApiResponse({
                     status: apiStatusConstants.success,
                     foodData,
-                    movieData,
+                    movieData: null,
                     errorMsg: null,
                 });
             } catch (error) {
