@@ -37,6 +37,7 @@ const Home = () => {
                 console.log(foodResponse)
                 if (!foodResponse.ok) throw new Error(`Food data error: ${foodResponse.status}`);
                 const foodData = await foodResponse.json();
+                console.log(foodData)
 
 
                 // popular movies data
@@ -44,6 +45,7 @@ const Home = () => {
                 console.log(moviesResponse)
                 if (!moviesResponse.ok) throw new Error(`Movies data error: ${moviesResponse.status}`);
                 const movieData = await moviesResponse.json();
+                console.log(movieData)
 
 
                 setApiResponse({
