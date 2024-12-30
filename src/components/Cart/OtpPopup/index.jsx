@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './index.css';
 
-Modal.setAppElement('#root'); 
 
 const OtpPopup = ({ isOpen, onClose, onVerify }) => {
   const [otp, setOtp] = useState('');

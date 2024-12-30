@@ -26,6 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/food/:id/" element={<FoodItemDetails/>} />
           <Route path="/cart" element={<Cart/>}/>
+          <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       </CartContext.Provider>
     </Router>

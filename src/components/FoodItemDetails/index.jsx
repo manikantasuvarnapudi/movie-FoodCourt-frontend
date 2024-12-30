@@ -69,10 +69,25 @@ const FoodItemDetails = () => {
         if(quantity > 1){
             setQuantity((prev) => prev-1)
         }
+        const updatedCartArray = cartArray.map((each) => {
+            if(each.id === id){
+               return {...each,quantity: quantity}
+            }
+            return each
+        })
+        setCartArray(updatedCartArray)
     }
 
     const increaseQuantity = () =>{
         setQuantity((prev) => prev+1)
+        const updatedCartArray = cartArray.map((each) => {
+            if(each.id === id){
+               return {...each,quantity: quantity}
+            }
+            return each
+        })
+        setCartArray(updatedCartArray)
+
     }
 
     const renderLoadingView = () => {
