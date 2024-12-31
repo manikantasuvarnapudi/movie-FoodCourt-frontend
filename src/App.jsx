@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Home from "./components/Home";
 import FoodItemDetails from "./components/FoodItemDetails";
 import Cart from "./components/Cart";
+import NotFound from "./components/NotFound";
 
 export const CartContext = createContext(null)
 
@@ -26,7 +27,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/food/:id/" element={<FoodItemDetails/>} />
           <Route path="/cart" element={<Cart/>}/>
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound/>} />
       </Routes>
       </CartContext.Provider>
     </Router>

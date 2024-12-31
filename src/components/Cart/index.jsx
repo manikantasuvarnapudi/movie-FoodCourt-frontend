@@ -7,8 +7,8 @@ import OtpPopup from "./OtpPopup"
 import OrderConfirmationPopup from "./OrderConformation"
 import { useNavigate } from "react-router-dom"
 import { ColorRing } from "react-loader-spinner"
+import EmptyCart from "./EmptyCart"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
 
 
 const Cart = () => {
@@ -22,11 +22,6 @@ const Cart = () => {
     const navigate = useNavigate();
     const [buttonLoader,setButtonLoader] = useState(false)
 
-    useEffect(() => {
-          if(cartArray.length <= 0){
-            navigate('/'); 
-          }     
-    },[navigate,cartArray.length])
 
     const totalAmmount = cartArray.reduce((accumeletor, cuurent) => accumeletor + cuurent.price * cuurent.quantity, 0)
     const onSubmitingForm = async (event) => {
@@ -102,7 +97,7 @@ const Cart = () => {
 
     return <div className="cart-bg-container">
         <Header />
-        <div className="cart-continer">
+        {cartArray.length < 1 ? <EmptyCart/> :  <div className="cart-continer">
             <div className="merito">
             <ul className="cart-list-ul-container">
                 {cartArray.map((each) => <CartItems cartitem={each} key={each.id} />)}
@@ -121,15 +116,11 @@ const Cart = () => {
                 {buttonLoader ? <ColorRing/>: <button className="proceed-button" type="submit" >Proceed </button>}
                 
             </form>
-        </div>
+        </div>   }
+        
         <div>
-            <OtpPopup
-                isOpen={isOtpOpen}
-                onClose={() => setOtpOpen(false)}
-                onVerify={handleVerify}
-            />
+            <OtpPopup isOpen={isOtpOpen} onClose={() => setOtpOpen(false)} onVerify={handleVerify}/>
             {showPopup && <OrderConfirmationPopup orderId={orderId} onClose={handleClosePopup} />}
-
         </div>
     </div>
 }

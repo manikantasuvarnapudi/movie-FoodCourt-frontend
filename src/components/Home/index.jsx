@@ -32,7 +32,6 @@ const Home = () => {
             const foodResponse = await fetch(`${backendUrl}/`);
             if (foodResponse.ok === true) {
                 const foodData = await foodResponse.json();
-                console.log(foodData);
                 setApiResponse({
                          status: apiStatusConstants.success,
                          foodData,
