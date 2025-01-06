@@ -14,15 +14,10 @@ const OrderConfirmationPopup = ({ orderId, onClose }) => {
           <p>Order ID: <strong>{orderId}</strong></p>
         </div>
         <div>
-        <button type='button' className="btn-close">
-        <a className='vendordahsboard-element' href="https://screenbite-vendor.vercel.app" target="_blank" rel="noopener noreferrer">
-          Go to Vendor Dashboard
-        </a>
-        </button>
         </div>
         <button className="btn-close" onClick={onClose}>Close</button>
       </div>
-      
+
     </div>
   );
 };

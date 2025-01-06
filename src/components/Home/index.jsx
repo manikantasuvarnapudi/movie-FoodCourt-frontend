@@ -6,6 +6,13 @@ import EachCard from "../EachCard"
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+
 
 
 const apiStatusConstants = {
@@ -14,6 +21,13 @@ const apiStatusConstants = {
     success: "SUCCESS",
     failure: "FAILURE"
 }
+
+const sliderImages = [
+    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152688/nc50uvflwjmfmkqlddbw.jpg",
+    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/mu1vzf80lxctjlmwtsgj.jpg",
+    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/isuhfdbqcgbvtmhnxibe.jpg",
+    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/mu1vzf80lxctjlmwtsgj.jpg"
+  ];
 
 
 
@@ -33,12 +47,12 @@ const Home = () => {
             if (foodResponse.ok === true) {
                 const foodData = await foodResponse.json();
                 setApiResponse({
-                         status: apiStatusConstants.success,
-                         foodData,
-                         errorMsg: null
+                    status: apiStatusConstants.success,
+                    foodData,
+                    errorMsg: null
                 });
             } else {
-                setApiResponse({status: apiStatusConstants.failure,foodData: null ,errorMsg: "Someting went to wrong when food fetching"});
+                setApiResponse({ status: apiStatusConstants.failure, foodData: null, errorMsg: "Someting went to wrong when food fetching" });
             }
         };
 
@@ -51,8 +65,35 @@ const Home = () => {
 
 
     const renderSuccessView = () => {
-        const { foodData} = apiResponse
+        const { foodData } = apiResponse
         return <div>
+
+            <div className="slider-container">
+                <Swiper
+                    modules={[Navigation, Pagination, Autoplay]}
+                    navigation
+                    pagination={{ clickable: true }}
+                    autoplay={{ delay: 2000 }}
+                    loop
+                    spaceBetween={30}
+                    breakpoints={{
+                        
+                        640: { slidesPerView: 1 },
+                        
+                        768: { slidesPerView: 2 },
+                    
+                        1024: { slidesPerView: 3 },
+                      }}
+                >
+                    {sliderImages.map((src, index) => (
+                        <SwiperSlide key={index}>
+                            <img src={src} alt={`Slide ${index + 1}`} className="slider-image"  />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+
+
 
             <div className="category-section">
                 <h3>Pizzas</h3>

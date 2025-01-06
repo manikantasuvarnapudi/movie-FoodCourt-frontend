@@ -1,5 +1,6 @@
 import { IoFastFoodOutline } from "react-icons/io5";
 import { BsCart } from "react-icons/bs";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { CartContext } from "../../App"
 import { Link } from "react-router-dom";
 import "./index.css"
@@ -37,10 +38,22 @@ const Header = () => {
                 </Link>
 
                 <div className="nav-childs">
+                    <a
+                        className="admin-panel-button"
+                        href="https://screenbite-vendor.vercel.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <p className="food-items-name">VendorDashboard</p>
+                        <MdOutlineAdminPanelSettings className="food-icon" />
+                    </a>
+
+
+
                     <Link className="nav-link" to="/">
                         <div className="food-items-container-icon">
-                        <p className="food-items-name">FoodItems</p>
-                        <IoFastFoodOutline className="food-icon" />
+                            <p className="food-items-name">FoodItems</p>
+                            <IoFastFoodOutline className="food-icon" />
                         </div>
                     </Link>
                     <Link className="nav-link" to="/cart">

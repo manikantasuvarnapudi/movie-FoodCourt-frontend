@@ -57,7 +57,7 @@ h3{
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    justify-content: space-evenly;
+    justify-content: space-around;
     width: 100%;
 }
 
@@ -72,3 +72,29 @@ h3{
 .category-section{
     margin-bottom: 10px;
 }
+
+.slider-container{
+    margin-bottom: 15px;
+
+}
+.slider-image{
+    display: block;
+    height: 250px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 6px;
+    margin: 0 auto;
+}
+/* Change the color of the arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgba(0, 0, 0, 0.5) !important; /* Set your desired color */
+}
+
+/* Optional: Change color on hover */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: white !important; /* Hover color */
+}
+
+
