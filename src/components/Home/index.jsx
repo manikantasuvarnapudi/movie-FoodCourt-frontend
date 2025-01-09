@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import Footer from "../Footer"
 
 
 
@@ -24,9 +25,9 @@ const apiStatusConstants = {
 
 const sliderImages = [
     "https://res.cloudinary.com/djszohdjt/image/upload/v1736152688/nc50uvflwjmfmkqlddbw.jpg",
-    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/mu1vzf80lxctjlmwtsgj.jpg",
     "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/isuhfdbqcgbvtmhnxibe.jpg",
-    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/mu1vzf80lxctjlmwtsgj.jpg"
+    "https://res.cloudinary.com/djszohdjt/image/upload/v1736152687/mu1vzf80lxctjlmwtsgj.jpg",
+    "https://res.cloudinary.com/djszohdjt/image/upload/v1736443209/xtltzeeugiusjvlvq0hc.jpg"
   ];
 
 
@@ -150,6 +151,7 @@ const Home = () => {
                     {foodData.filter((each) => each.category === "frenchfries").map(each => <EachCard key={each.id} details={each} />)}
                 </ul>
             </div>
+            <Footer/>
         </div>
     }
 

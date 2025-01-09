@@ -1,35 +1,58 @@
-.card-image{
+.card-image {
     width: 180px;
     height: 130px;
     border-radius: 4px;
 }
 @media screen and (min-width: 576px) {
-    .card-image{
+    .card-image {
         width: 380px;
         height: 230px;
     }
 }
-.each-card-container{
+
+.each-card-container {
     margin: 5px;
+    position: relative; /* Needed for offer badge positioning */
 }
-.nav-link{
+
+.nav-link {
     color: white;
     text-decoration: none;
 }
-.item-cost{
+
+.item-cost {
     color: rgb(160, 144, 144);
 }
 @media screen and (min-width: 576px) {
-    .item-cost{
+    .item-cost {
         font-size: 19px;
     }
 }
-.food-item-name{
+
+.food-item-name {
     font-family: "Roboto";
     font-size: 16px;
 }
 @media screen and (min-width: 576px) {
-    .food-item-name{
+    .food-item-name {
         font-size: 18px;
     }
+}
+
+/* New styles for offer badge */
+.image-container {
+    position: relative;
+}
+
+.offer-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
